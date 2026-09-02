@@ -1,0 +1,191 @@
+\documentclass[11pt,openany]{book}
+
+\usepackage[a5paper,top=17mm,bottom=20mm,inner=19mm,outer=15mm,headheight=14pt]{geometry}
+\usepackage{fontspec}
+\usepackage[vietnamese]{babel}
+\usepackage{unicode-math}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[most]{tcolorbox}
+\usepackage{fvextra}
+\usepackage{listings}
+\lstdefinelanguage{text}{}
+\usepackage[
+  fencedCode,
+  pipeTables,
+  smartEllipses,
+  strikeThrough,
+  texMathDollars,
+  texMathSingleBackslash,
+  hybrid
+]{markdown}
+
+\setmainfont{Charis SIL}
+\setsansfont{Inter}
+\setmonofont{Cousine}[Scale=MatchLowercase]
+\setmathfont{Latin Modern Math}
+\newfontfamily\starfont{DejaVu Sans}
+\providecommand{\square}{\mdlgwhtsquare}
+
+\definecolor{bookblue}{HTML}{164E63}
+\definecolor{bookteal}{HTML}{0F766E}
+\definecolor{bookgold}{HTML}{B7791F}
+\definecolor{bookpaper}{HTML}{F8FAFC}
+\definecolor{bookink}{HTML}{17202A}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=bookteal,
+  urlcolor=bookblue,
+  pdftitle={Đi tìm thử thách 2 — Bản dịch tiếng Việt},
+  pdfauthor={Bản dịch tiếng Việt dùng cho mục đích giáo dục}
+}
+\DeclareRobustCommand{\difficulty}[1]{{\starfont\color{bookgold}%
+  \ifcase#1\or ★\or ★★\or ★★★\or ★★★★\fi}}
+\pdfstringdefDisableCommands{%
+  \def\difficulty#1{[#1 sao]}%
+}
+
+\color{bookink}
+\setlength{\parindent}{1.1em}
+\setlength{\parskip}{0.15em}
+\setlength{\emergencystretch}{2em}
+\setlength{\headheight}{15pt}
+\raggedbottom
+\renewcommand{\chaptername}{Bài}
+
+\titleformat{\chapter}[display]
+  {\sffamily\bfseries\color{bookblue}}
+  {\filleft\Large BÀI \thechapter}
+  {0.4ex}
+  {\titlerule[1.2pt]\vspace{1ex}\Huge}
+\titleformat{\section}
+  {\sffamily\Large\bfseries\color{bookteal}}
+  {\thesection}{0.65em}{}
+\titleformat{\subsection}
+  {\sffamily\large\bfseries\color{bookblue}}
+  {\thesubsection}{0.55em}{}
+\titleformat{\subsubsection}
+  {\sffamily\normalsize\bfseries\color{bookblue}}
+  {\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\sffamily\small\color{bookblue}\leftmark}
+\fancyhead[RO]{\sffamily\small\color{bookblue}\rightmark}
+\fancyfoot[C]{\sffamily\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\renewenvironment{quote}
+  {\begin{tcolorbox}[enhanced,breakable,colback=bookpaper,colframe=bookteal,
+    boxrule=0pt,leftrule=2pt,arc=0pt,left=8pt,right=8pt,top=5pt,bottom=5pt]}
+  {\end{tcolorbox}}
+
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+  breaklines,breakanywhere,fontsize=\small,
+  frame=single,framesep=5pt,rulecolor=\color{bookteal}}
+
+% Pseudocode is visually distinct from sample input/output blocks.
+\newtcolorbox{pseudocodebox}{
+  enhanced,breakable,
+  colback=bookblue!3,colframe=bookteal!75,
+  colbacktitle=bookteal!12,coltitle=bookblue,
+  title={Pseudocode},fonttitle=\sffamily\bfseries\footnotesize,
+  boxrule=.55pt,arc=1.5mm,
+  left=5pt,right=5pt,top=4pt,bottom=4pt,
+  before skip=7pt,after skip=7pt}
+
+\def\markdownRendererInputFencedCode#1#2{%
+  \ifstrequal{#2}{pseudocode}{%
+    \begin{pseudocodebox}
+      \VerbatimInput[fontsize=\scriptsize,breaklines,breakanywhere,
+        breaksymbolleft={},breaksymbolright={}]{#1}%
+    \end{pseudocodebox}%
+  }{%
+    \VerbatimInput[fontsize=\small,breaklines,breakanywhere]{#1}%
+  }%
+}
+
+% Map Markdown headings to the book hierarchy: # = chapter, ## = section, ...
+\def\markdownRendererHeadingOne#1{\chapter{#1}}
+\def\markdownRendererHeadingTwo#1{\section{#1}}
+\def\markdownRendererHeadingThree#1{\subsection{#1}}
+\def\markdownRendererHeadingFour#1{\subsubsection{#1}}
+\def\markdownRendererLineBreak{\newline}
+\def\markdownRendererImage#1#2#3#4{%
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth,height=.43\textheight,keepaspectratio]{#3}%
+    \caption{#1}%
+  \end{figure}}
+
+\begin{document}
+
+\frontmatter
+\begin{titlepage}
+  \pagecolor{bookpaper}
+  \centering
+  \vspace*{18mm}
+  {\sffamily\bfseries\color{bookblue}\fontsize{29}{34}\selectfont
+    ĐI TÌM THỬ THÁCH 2\par}
+  \vspace{5mm}
+  {\color{bookteal}\rule{0.72\textwidth}{1.4pt}\par}
+  \vspace{7mm}
+  {\sffamily\Large Các bài toán từ Kỳ thi Lập trình\par
+    Sinh viên Ba Lan 2011--2014\par}
+  \vfill
+  \begin{tcolorbox}[width=.82\textwidth,colback=white,colframe=bookteal,
+    boxrule=.7pt,arc=2mm]
+    \centering\sffamily
+    \textbf{\ifdefined\FullBook Bản dịch tiếng Việt\else Bản xem trước tiếng Việt\fi}\par
+    \smallskip
+    \ifdefined\FullBook 44 bài toán, 2011--2014\else 4 bài đầu tiên của năm 2011\fi
+  \end{tcolorbox}
+  \vfill
+  {\small\itshape Bản dịch phục vụ mục đích giáo dục.\par}
+  \vspace{10mm}
+  {\sffamily\color{bookgold}BẢN THẢO • 2026}
+\end{titlepage}
+\nopagecolor
+
+\chapter*{Ghi chú về bản dịch}
+\addcontentsline{toc}{chapter}{Ghi chú về bản dịch}
+\ifdefined\FullBook
+Bản PDF này là bản thảo tiếng Việt gồm đủ 44 bài toán và lời giải.
+\else
+Bản PDF này minh họa cách trình bày dự kiến cho bản dịch hoàn chỉnh.
+\fi
+Nội dung
+được ưu tiên dịch từ bản tiếng Anh. Với 33 lời giải chưa có trong bản tiếng Anh,
+bản tiếng Ba Lan năm 2019 (phiên bản 2.1) sẽ là nguồn chính.
+
+Tên biến, công thức, độ phức tạp và dữ liệu vào/ra được giữ nguyên về ngữ nghĩa.
+Các chương trong bản xem trước vẫn cần một vòng soát kỹ thuật độc lập trước khi
+được xem là hoàn chỉnh.
+
+\tableofcontents
+
+\mainmatter
+\ifdefined\FullBook
+\input{book/chapters.tex}
+\else
+\markdownInput{build/markdown/2011-ary-hinh-chu-nhat-cap-so-cong.md}
+\markdownInput{build/markdown/2011-baj-cuoc-dua-duong-pho-bytean.md}
+\markdownInput{build/markdown/2011-czy-lieu-no-co-dung.md}
+\markdownInput{build/markdown/2011-drz-cay-va-dan-kien.md}
+\fi
+
+\backmatter
+\chapter*{Thông tin nguồn}
+\addcontentsline{toc}{chapter}{Thông tin nguồn}
+\begin{itemize}
+  \item \emph{Looking for a Challenge 2}, bản tiếng Anh, Warszawa, 2019.
+  \item \emph{W poszukiwaniu wyzwań 2}, bản tiếng Ba Lan, ấn bản sửa đổi lần hai,
+        phiên bản 2.1, Warszawa, 2019.
+\end{itemize}
+
+\end{document}
